@@ -12,16 +12,37 @@
 
 $file_b = $_FILES['subir']['tmp_name'];
 $file_m = $_FILES['subir_2']['tmp_name'];
+$fila = 1;
+$openfile_b = fopen($file_b, 'ab');
+if (($gestor = fopen($file_m, 'r')) !== FALSE) {
+    while (($datos = fgetcsv($gestor, 1000, ",")) !== FALSE) {
+        $numero = count($datos);
+        echo "<p> $numero de campos en la línea $fila: <br /></p>\n";
+        $fila++;
+        for ($c=0; $c < $numero; $c++) {
+            echo $datos[$c] . "<br />\n";
+            fputcsv($openfile_b, (array) $datos[$c]);
+
+        }
+    }
+    fclose($gestor);
+    fclose($openfile_b);
+}
+
+/*
+$file_b = $_FILES['subir']['tmp_name'];
+$file_m = $_FILES['subir_2']['tmp_name'];
 $openfile_b = fopen($file_b, "a");
 $openfile_m = fopen($file_m, "r");
-$data = array();
-while (($data = fgetcsv($openfile_m, 1000, ","))!==FALSE){
+while (($data = fgetcsv($openfile_m, 100, ","))){
   $num = count($data);
   for($c = 0; $c < $num; $c++) {
-    fputcsv($openfile_b, $data[$c]);
+    fputcsv($openfile_b, (array) $data[$c]);
   }
 }
 fclose($openfile_b);
+fclose($openfile_m);
+*/
 
 /*
 $file = "Ejemplo.csv";
