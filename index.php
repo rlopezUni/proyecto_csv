@@ -2,21 +2,26 @@
 <h1>Prueba de "subida"</h1>
 <br>
 <form enctype="multipart/form-data" action="index.php" method="POST">
-  <p>Subir archivo: <input name="subir" type="file" accept=".csv"/></p>
+  <p>Archivo base: <input name="subir" type="file" accept=".csv"/></p>
+  <p>Archivo con datos a agregar: <input name="subir_2" type="file" accept=".csv"/></p>
   <p> <input type="submit" value="Intento"/></p>
 </form>
 </html>
 
 <?php
 
-$xd = fopen("Ejemplo.csv", "a");
-$file = $_FILES['subir']['tmp_name'];
-$openfile = fopen($file, "r");
-while ($data = fgetcsv($openfile, 1000, ";")){
-  $num = count ($data);
-  fputcsv($xd, $data);
+$file_b = $_FILES['subir']['tmp_name'];
+$file_m = $_FILES['subir_2']['tmp_name'];
+$openfile_b = fopen($file_b, "a");
+$openfile_m = fopen($file_m, "r");
+$data = array();
+while (($data = fgetcsv($openfile_m, 1000, ","))!==FALSE){
+  $num = count($data);
+  for($c = 0; $c < $num; $c++) {
+    fputcsv($openfile_b, $data[$c]);
+  }
 }
-fclose($xd);
+fclose($openfile_b);
 
 /*
 $file = "Ejemplo.csv";
