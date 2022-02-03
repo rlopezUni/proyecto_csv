@@ -79,8 +79,9 @@ while (($fila = fgetcsv($archivo, $longitudDeLinea, $delimitador, $caracterCircu
         }
         else if($numeroDeColumna == 3)
         {
-          echo "Campus: $columna\n";
-          $prueba[$numeroDeColumna] = $columna;
+
+            echo "Campus: $columna\n";
+            $prueba[$numeroDeColumna] = $columna;
         }
         else if($numeroDeColumna == 4)
         {
@@ -90,7 +91,7 @@ while (($fila = fgetcsv($archivo, $longitudDeLinea, $delimitador, $caracterCircu
         else if($numeroDeColumna == 5)
         {
           echo "Contraseña: $columna\n";
-          $prueba[$numeroDeColumna] = $columna;
+          $prueba[$numeroDeColumna] = "univer1";
         }
         else if($numeroDeColumna == 6)
         {
@@ -102,10 +103,7 @@ while (($fila = fgetcsv($archivo, $longitudDeLinea, $delimitador, $caracterCircu
       }
 
     }
-    foreach($prueba as $test)
-    {
-        fputcsv($A, (array) $test);
-    }
+    fputcsv($A,  $prueba);
     # Para separar la impresión
     echo "\n\n";
     # Aumentar el índice
