@@ -38,9 +38,15 @@ listarArchivos("./archivos/");
 $longitudDeLinea = 1000;
 $delimitador = ","; # Separador de columnas
 $caracterCircundante = '"'; # A veces los valores son encerrados entre comillas
-$nombreArchivo = "./archivos/3.csv";
-$NA = "./archivos/Ejemplo.csv";
-$prueba = array();
+$nombreArchivo = "./archivos/6.csv";
+$NA = "./archivos/Excel Final.csv";
+$prueba = array(
+0 => '',
+1 => '',
+2 => '',
+3 => '',
+4 => '',
+5 => '');
 # Abrir el archivo
 $archivo = fopen($nombreArchivo, "r");
 $A = fopen($NA, "a");
@@ -51,59 +57,89 @@ if (!$archivo) {
 #  Comenzar a leer, $numeroDeFila es para llevar un índice
 $numeroDeFila = 1;
 while (($fila = fgetcsv($archivo, $longitudDeLinea, $delimitador, $caracterCircundante)) !== false) {
-
-
-
     foreach ($fila as $numeroDeColumna => $columna) {
 
       if($numeroDeFila >1)
       {
          echo "<pre>";
 
-        if($numeroDeColumna == 0)
+        if($numeroDeColumna == 1)
         {
-          echo "<br><br><br>";
-          echo "Inicio Alumno<br>";
-          echo "Matricula: $columna\n";
-          $prueba[$numeroDeColumna] = $columna;
-        }
-        else if($numeroDeColumna == 1)
-        {
+          echo "<br><br>";
           echo "Nombre: $columna\n";
-          $prueba[$numeroDeColumna] = $columna;
+          $prueba[0] = $columna;
         }
         else if($numeroDeColumna == 2)
         {
           echo "Apellido: $columna\n";
-          $prueba[$numeroDeColumna] = $columna;
+          $prueba[1] = $columna;
         }
         else if($numeroDeColumna == 3)
         {
-
-            echo "Campus: $columna\n";
-            $prueba[$numeroDeColumna] = $columna;
+            if($columna == "Plantel Jardines del Bosque")
+            {
+                $corregir = "/Jardines del bosque";
+                echo "Campus: $corregir\n";
+                $prueba[4] = $corregir;
+            }
+            else if($columna == "Plantel Tlaquepaque")
+            {
+                $corregir = "/Tlaquepaque";
+                echo "Campus: $corregir\n";
+                $prueba[4] = $corregir;
+            }
+            else if($columna == "OnLine")
+            {
+                $corregir = "/Online";
+                echo "Campus: $corregir\n";
+                $prueba[4] = $corregir;
+            }
+            else if($columna == "Plantel Ávila Camacho")
+            {
+                $corregir = "/Avila Camacho";
+                echo "Campus: $corregir\n";
+                $prueba[4] = $corregir;
+            }
+            else if($columna == "Plantel Centro Histórico R")
+            {
+                $corregir = "/Centro HistÃ³rico";
+                echo "Campus: $corregir\n";
+                $prueba[4] = $corregir;
+            }
+            else if($columna == "Plantel Loma Bonita")
+            {
+                $corregir = "/Loma Bonita";
+                echo "Campus: $corregir\n";
+                $prueba[4] = $corregir;
+            }
+            else if($columna == "Plantel Tonalá")
+            {
+                $corregir = "/TonalÃ¡";
+                echo "Campus: $corregir\n";
+                $prueba[4] = $corregir;
+            }
         }
         else if($numeroDeColumna == 4)
         {
-          echo "Correo: $columna\n";
-          $prueba[$numeroDeColumna] = $columna;
+          echo "Correo; $columna\n";
+          $prueba[2] = $columna;
         }
         else if($numeroDeColumna == 5)
         {
           echo "Contraseña: $columna\n";
-          $prueba[$numeroDeColumna] = "univer1";
+          $prueba[3] = "Univer1";
         }
         else if($numeroDeColumna == 6)
         {
-          echo "Correo Personal: $columna\n";
-          $prueba[$numeroDeColumna] = $columna;
-          echo "Fin De un alumno <br>";
+          echo "Cambiar la contraseña la proxima vez que se inicie seción\n";
+          $prueba[5] = "TRUE";
+          echo "<br><br>";
         }
         echo "</pre>";
       }
 
     }
-    fputcsv($A,  $prueba);
+    fputcsv($A, $prueba);
     # Para separar la impresión
     echo "\n\n";
     # Aumentar el índice
