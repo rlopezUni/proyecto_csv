@@ -1,6 +1,90 @@
 <?php
 
+//Para borar el contenido del csv al correr el código
 
+$longitudDeLinea = 1000;
+$delimitador = ","; 
+$caracterCircundante = '"';
+
+$ArchivoFinal = "./archivos/Excel Final.csv";
+$ar = fopen($ArchivoFinal, "r+");
+if(!$ar){
+exit("No se pudo abrir el archivo $ArchivoFinal");
+}
+
+$arreglo = array();
+$arreglo2 = array();
+
+$numeroFila = 1;
+while (($fila = fgetcsv($ar, $longitudDeLinea, $delimitador, $caracterCircundante))!== false){
+ foreach($fila as $numeroDeColumna => $columna){
+  if($numeroFila == 1){
+   if($numeroDeColumna == 0){
+    echo "<pre>";
+    $arreglo[0] = $columna;
+    echo "$columna\n";
+   }
+   if($numeroDeColumna == 1){
+    $arreglo[1] = $columna;
+    echo "$columna\n";
+   }
+   if($numeroDeColumna == 2){
+    $arreglo[2] = $columna;
+    echo "$columna\n";
+   }
+   if($numeroDeColumna == 3){
+    $arreglo[3] = $columna;
+    echo "$columna\n";
+   }
+   if($numeroDeColumna == 4){
+    $arreglo[4] = $columna;
+    echo "$columna\n";
+   }
+   if($numeroDeColumna == 5){
+    $arreglo[5] = $columna;
+    echo "$columna\n\n";
+    echo "<br><br>";
+    echo "</pre>";
+   }
+  }
+  else if($numeroFila == 1)
+  {
+   if($numeroDeColumna == 0){
+    echo "<pre>";
+    $arreglo2[$numeroDeColumna] = NULL;
+    echo "$columna\n";
+   }
+   if($numeroDeColumna == 1){
+    $arreglo2[$numeroDeColumna] = NULL;
+    echo "$columna\n";
+   }
+   if($numeroDeColumna == 2){
+    $arreglo2[$numeroDeColumna] = NULL;
+    echo "$columna\n";
+   }
+   if($numeroDeColumna == 3){
+    $arreglo2[$numeroDeColumna] = NULL;
+    echo "$columna\n";
+   }
+   if($numeroDeColumna == 4){
+    $arreglo2[$numeroDeColumna] = NULL;
+    echo "$columna\n";
+   }
+   if($numeroDeColumna == 5){
+    $arreglo2[$numeroDeColumna] = NULL;
+    echo "$columna\n";
+    echo "<br><br>";
+    echo "</pre>";
+   }
+   
+  }
+  fputcsv($ar, $arreglo2);
+  $numeroFila++;
+ }
+ 
+}
+fputcsv($ar, $arreglo);
+fclose($ar);
 
 
 //Leer todos los archivos de una carpeta
@@ -102,7 +186,7 @@ while (($fila = fgetcsv($archivo, $longitudDeLinea, $delimitador, $caracterCircu
             }
             else if($columna == "Plantel Centro Histórico R")
             {
-                $corregir = "/Centro HistÃ³rico";
+                $corregir = "/Centro Histórico";
                 echo "Campus: $corregir\n";
                 $prueba[4] = $corregir;
             }
@@ -114,7 +198,7 @@ while (($fila = fgetcsv($archivo, $longitudDeLinea, $delimitador, $caracterCircu
             }
             else if($columna == "Plantel Tonalá")
             {
-                $corregir = "/TonalÃ¡";
+                $corregir = "/Tonalá";
                 echo "Campus: $corregir\n";
                 $prueba[4] = $corregir;
             }
@@ -149,3 +233,4 @@ while (($fila = fgetcsv($archivo, $longitudDeLinea, $delimitador, $caracterCircu
 fclose($archivo);
 fclose($A);
 
+?>
