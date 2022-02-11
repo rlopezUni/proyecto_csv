@@ -104,11 +104,22 @@ $delimitador = ",";
 $caracterCircundante = '"';
 
 $AC = "./Salida/EXF.csv";
-$CA = fopen($AC, "c");
+$CA = fopen($AC, "c+");
 if(!$CA){
  exit("No se pudo abrir el archivo $AC");
 }
+/*
+$eli = array();
 
+$numeroFila = 1;
+while (($fila = fgetcsv($CA, $longitudDeLinea, $delimitador, $caracterCircundante))!== false){
+ foreach($fila as $numeroDeColumna => $columna){
+  $eli[$numeroDeColumna] = NULL;
+ }
+ fputcsv($CA, $eli);
+ $numeroFila++;
+}
+*/
 $Pre = array(
 0 => 'First Name [Required]',
 1 => 'Last Name [Required]',
@@ -127,6 +138,7 @@ if(!$CA){
 }
 
 $arco = array(0 => NULL,1 => NULL,2 => NULL,3 => null,4 => null,5 => null);
+$contra = array(0 =>'',1 =>'',2 =>'',3 =>'',4 =>'',5 =>'', 6=>'');
 $dir = opendir("./Entrada/");
 while($elemento = readdir($dir)){
  if($elemento != "." && $elemento != ".."){
@@ -204,6 +216,60 @@ while($elemento = readdir($dir)){
    }//while
    fclose($SA);
    $arco = array(0 => null,1 => null,2 => null,3 => null,4 => null,5 => null);
+   $AS = "./Entrada/".$elemento;
+   $SA = fopen($AS, "r+");
+   $AS2 = "./Salida/".$elemento;
+   $SA2 = fopen($AS2, "c");
+   if(!$SA){
+    exit("No se pudo abrir el archivo $AS");
+   }
+   if(!$SA2){
+    exit("No se pudo abrir el archivo $AS2");
+   }
+   $numeroDeFila = 1;
+   while (($fila = fgetcsv($SA, $longitudDeLinea, $delimitador, $caracterCircundante)) !== false){
+    foreach ($fila as $numeroDeColumna => $columna) {
+     if($numeroDeFila == 1){
+      if($numeroDeColumna == 0){
+       $contra[$numeroDeColumna] = $columna;
+      }else if($numeroDeColumna == 1){
+       $contra[$numeroDeColumna] = $columna;
+      }else if($numeroDeColumna == 2){
+       $contra[$numeroDeColumna] = $columna;
+      }else if($numeroDeColumna == 3){
+       $contra[$numeroDeColumna] = $columna;
+      }else if($numeroDeColumna == 4){
+       $contra[$numeroDeColumna] = $columna;
+      }else if($numeroDeColumna == 5){
+       $contra[$numeroDeColumna] = $columna;
+      }else if($numeroDeColumna == 6){
+       $contra[$numeroDeColumna] = $columna;
+      }
+     }else if($numeroDeFila > 1){
+      if($numeroDeColumna == 0){
+       $contra[$numeroDeColumna] = $columna;
+      }else if($numeroDeColumna == 1){
+       $contra[$numeroDeColumna] = $columna;
+      }else if($numeroDeColumna == 2){
+       $contra[$numeroDeColumna] = $columna;
+      }else if($numeroDeColumna == 3){
+       $contra[$numeroDeColumna] = $columna;
+      }else if($numeroDeColumna == 4){
+       $contra[$numeroDeColumna] = $columna;
+      }else if($numeroDeColumna == 5){
+       $contra[$numeroDeColumna] = "Univer#1";
+      }else if($numeroDeColumna == 6){
+       $contra[$numeroDeColumna] = $columna;
+      }
+     }
+    }
+    fputcsv($SA2, $contra);
+    //$contra = array(0 => '', 1 => '', 2 => '', 3 => '', 4 => '', 5 => '', 6 => '');
+    $numeroDeFila++;
+   }
+   
+   fclose($SA);
+   fclose($SA2);
   }//If
  }//If
  
